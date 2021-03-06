@@ -7,7 +7,7 @@ const ProductView = () => {
 		product,
 		fetchProductByHandle,
 		openCart,
-		checkoutState,
+		checkout,
 		addVariant,
 	} = useShopify()
 
@@ -22,7 +22,7 @@ const ProductView = () => {
 	}, [handle])
 
 	const defaultSize = product.variants && product.variants[0].id.toString()
-	
+
 	const changeSize = (sizeId, quantity) => {
 		openCart()
 
@@ -32,14 +32,14 @@ const ProductView = () => {
 				{ variantId: sizeId, quantity: parseInt(quantity, 10) },
 			]
 
-			const checkoutId = checkoutState.id
+			const checkoutId = checkout.id
 			addVariant(checkoutId, lineItemsToAdd)
 		} else {
 			const lineItemsToAdd = [
 				{ variantId: sizeId, quantity: parseInt(quantity, 10) },
 			]
 
-			const checkoutId = checkoutState.id
+			const checkoutId = checkout.id
 			addVariant(checkoutId, lineItemsToAdd)
 		}
 	}

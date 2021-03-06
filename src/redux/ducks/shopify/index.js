@@ -127,7 +127,7 @@ const getProductByHandle = (handle) => async (dispatch) => {
 // }
 
 // Creates initial checkout state from Shopify
-const checkout = () => async (dispatch) => {
+const createCheckoutFunction = () => async (dispatch) => {
 	const checkout = await client.checkout.create()
 
 	dispatch({
@@ -137,7 +137,7 @@ const checkout = () => async (dispatch) => {
 }
 
 // Gets Shopify store information
-const shopInfo = () => async (dispatch) => {
+const getShopInfo = () => async (dispatch) => {
 	const shop = await client.shop.fetchInfo()
 
 	dispatch({
@@ -221,7 +221,7 @@ export const useShopify = () => {
 	const products = useSelector((appState) => appState.shopifyState.products)
 	const product = useSelector((appState) => appState.shopifyState.product)
 	const featured = useSelector((appState) => appState.shopifyState.featured)
-	const checkoutState = useSelector((appState) => appState.shopifyState.checkout)
+	const checkout = useSelector((appState) => appState.shopifyState.checkout)
 	const shopDetails = useSelector((appState) => appState.shopifyState.shop)
 
 	// trigger actions to update redux store
@@ -230,9 +230,8 @@ export const useShopify = () => {
 
 	const fetchProducts = () => dispatch(getProducts())
 	const fetchProductByHandle = (handle) => dispatch(getProductByHandle(handle))
-	// const fetchCollection = () => dispatch(getCollection())
-	const createCheckout = () => dispatch(checkout())
-	const createShop = () => dispatch(shopInfo())
+	const createCheckout = () => dispatch(createCheckoutFunction())
+	const createShop = () => dispatch(getShopInfo())
 	const closeCart = () => dispatch(handleCartClose())
 	const openCart = () => dispatch(handleCartOpen())
 	const setCount = (count) => dispatch(handleSetCount(count))
@@ -249,7 +248,7 @@ export const useShopify = () => {
 		product,
 		featured,
 		cartStatus,
-		checkoutState,
+		checkout,
 		cartCount,
 		shopDetails,
 		addVariant,

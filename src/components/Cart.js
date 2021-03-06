@@ -8,7 +8,7 @@ const Cart = () => {
 		cartStatus,
 		closeCart,
 		openCart,
-		checkoutState,
+		checkout,
 		setCount,
 	} = useShopify()
 
@@ -24,8 +24,8 @@ const Cart = () => {
 
 	function openCheckout(e) {
 		e.preventDefault()
-		// window.open(checkoutState.webUrl) // opens checkout in a new window
-		window.location.replace(checkoutState.webUrl) // opens checkout in same window
+		// window.open(checkout.webUrl) // opens checkout in a new window
+		window.location.replace(checkout.webUrl) // opens checkout in same window
 	}
 
 	useEffect(() => {
@@ -38,8 +38,8 @@ const Cart = () => {
 
 		function getCount() {
 			let lineItems =
-				checkoutState.lineItems && checkoutState.lineItems.length > 0
-					? checkoutState.lineItems
+				checkout.lineItems && checkout.lineItems.length > 0
+					? checkout.lineItems
 					: []
 			let count = 0
 			lineItems.forEach((item) => {
@@ -51,7 +51,7 @@ const Cart = () => {
 		}
 
 		getCount()
-	}, [cartStatus, checkoutState])
+	}, [cartStatus, checkout])
 
 	return (
 		<div id="cart">
@@ -74,19 +74,19 @@ const Cart = () => {
 					<div className="Cart-info clearfix">
 						<div className="Cart-info__total Cart-info__small">Subtotal</div>
 						<div className="Cart-info__pricing">
-							<span className="pricing">$ {checkoutState.subtotalPrice}</span>
+							<span className="pricing">$ {checkout.subtotalPrice}</span>
 						</div>
 					</div>
 					<div className="Cart-info clearfix">
 						<div className="Cart-info__total Cart-info__small">Taxes</div>
 						<div className="Cart-info__pricing">
-							<span className="pricing">$ {checkoutState.totalTax}</span>
+							<span className="pricing">$ {checkout.totalTax}</span>
 						</div>
 					</div>
 					<div className="Cart-info clearfix">
 						<div className="Cart-info__total Cart-info__small">Total</div>
 						<div className="Cart-info__pricing">
-							<span className="pricing">$ {checkoutState.totalPrice}</span>
+							<span className="pricing">$ {checkout.totalPrice}</span>
 						</div>
 					</div>
 					<button

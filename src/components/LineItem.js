@@ -2,32 +2,32 @@ import React from "react"
 import { useShopify } from "../hooks"
 
 const LineItem = () => {
-	const { checkoutState, updateQuantity, removeLineItem } = useShopify()
+	const { checkout, updateQuantity, removeLineItem } = useShopify()
 
 	function decrementQuantity(lineItemId, lineItemQuantity, e) {
 		e.preventDefault()
-		const checkoutId = checkoutState.id
+		const checkoutId = checkout.id
 		const updatedQuantity = lineItemQuantity - 1
 		updateQuantity(lineItemId, updatedQuantity, checkoutId)
 	}
 
 	function incrementQuantity(lineItemId, lineItemQuantity, e) {
 		e.preventDefault()
-		const checkoutId = checkoutState.id
+		const checkoutId = checkout.id
 		const updatedQuantity = lineItemQuantity + 1
 		updateQuantity(lineItemId, updatedQuantity, checkoutId)
 	}
 
 	function deleteLineItem(lineItemId, e) {
 		e.preventDefault()
-		const checkoutId = checkoutState.id
+		const checkoutId = checkout.id
 		removeLineItem(checkoutId, lineItemId)
 	}
 
 	return (
 		<li className="Line-item">
-			{checkoutState.lineItems &&
-				checkoutState.lineItems.map((lineItem, i) => {
+			{checkout.lineItems &&
+				checkout.lineItems.map((lineItem, i) => {
 					return (
 						<div key={`${lineItem.title}` + i} className="lineItemDiv">
 							<div className="Line-item__img">
